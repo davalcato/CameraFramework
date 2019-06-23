@@ -16,14 +16,21 @@ public enum CameraPosition {
 
 public final class CameraViewController: UIViewController {
     public var position: CameraPosition = .back
+    
     var session = AVCaptureSession()
     var discoverySession: AVCaptureDevice.DiscoverySession? {
         return AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
     }
+    var videoInput: AVCaptureDeviceInput?
     var videoOutput = AVCaptureVideoDataOutput()
     
     public init() {
         super.init(nibName: nil, bundle: nil)
+        
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         createUI()
         commitConfiguration()
     }
@@ -71,7 +78,7 @@ public final class CameraViewController: UIViewController {
         return previewLayer
     }
     
-    func getDevice() -> AVCaptureDevice? {
+    func getDevice(with position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         guard let discoverySession = self.discoverySession else {
             return nil
         }

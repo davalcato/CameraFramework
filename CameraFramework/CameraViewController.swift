@@ -55,6 +55,10 @@ public final class CameraViewController: UIViewController {
     }
     
     func commitConfiguration() {
+        if let currentInput = self.videoInput {
+            self.session.removeInput(currentInput)
+            self.session.removeOutput(self.videoOutput)
+        }
         do {
             guard let device = getDevice(with: self.position == .front ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back) else {
                 return

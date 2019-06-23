@@ -56,7 +56,7 @@ public final class CameraViewController: UIViewController {
     
     func commitConfiguration() {
         do {
-            guard let device = getDevice() else {
+            guard let device = getDevice(with: self.position == .front ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back) else {
                 return
             }
             let input = try AVCaptureDeviceInput(device: device)
@@ -75,6 +75,7 @@ public final class CameraViewController: UIViewController {
     func getPreviewLayer(session: AVCaptureSession) -> AVCaptureVideoPreviewLayer {
         let previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
         previewLayer.frame = self.view.bounds
+        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         return previewLayer
     }
     
@@ -84,7 +85,7 @@ public final class CameraViewController: UIViewController {
         }
         
         for device in discoverySession.devices {
-            if device.position == AVCaptureDevice.Position.back {
+            if device.position == position {
                 return device
             }
         }

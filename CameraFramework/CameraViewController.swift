@@ -13,6 +13,7 @@ public final class CameraViewController: UIViewController {
     var session = AVCaptureSession()
     var discoverySession: AVCaptureDevice.DiscoverySession?
     {
+         // look through all devices 
         return AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
     }
     var videoOutput = AVCaptureVideoDataOutput()
@@ -24,7 +25,7 @@ public final class CameraViewController: UIViewController {
         
     }
     
-    required public init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -44,6 +45,8 @@ public final class CameraViewController: UIViewController {
     }
     
     func commitConfiguration() {
+        
+        // set up input output
         do {
             guard let device = getDevice() else {
                 return
@@ -59,8 +62,6 @@ public final class CameraViewController: UIViewController {
         } catch {
             print("Error linking device to AVInput!!")
             return
-            
-            
         }
         
     }

@@ -18,7 +18,7 @@ public enum CameraPosition {
 public final class CameraViewController: UIViewController {
     fileprivate var camera: Camera?
     
-    open var position: CameraPosition = .back {
+    public var position: CameraPosition = .back {
         didSet {
             guard let camera = self.camera else {
                 return
@@ -51,6 +51,10 @@ public final class CameraViewController: UIViewController {
     func createUI() {
         guard let camera = self.camera else {
             return
+        }
+        guard let previewLayer = camera.getPreviewLayer()
+            else{
+                return
         }
         self.view.layer.addSublayer(previewLayer)
     }

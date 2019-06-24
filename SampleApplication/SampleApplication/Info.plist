@@ -20,8 +20,6 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>Camera is needed for this app to work.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIApplicationSceneManifest</key>
@@ -64,5 +62,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>requires access to camera for uploading product images</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>requires access to camera for uploading product images</string>
 </dict>
 </plist>

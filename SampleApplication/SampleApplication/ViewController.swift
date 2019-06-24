@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let camera = CameraViewController.init()
+        camera.position = .back
         present(camera, animated: true, completion: nil)
     }
 

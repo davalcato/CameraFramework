@@ -149,6 +149,7 @@ fileprivate extension CameraViewController {
     }
 }
 
+extension CameraViewController: CameraDelegate
 
 
 

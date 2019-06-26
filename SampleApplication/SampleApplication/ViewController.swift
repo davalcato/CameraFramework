@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let camera = CameraViewController.init()
+        camera.delegate = self
         camera.position = .back
         present(camera, animated: true, completion: nil)
     }
@@ -22,7 +23,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+}
 
-
+extension ViewController: CameraControllerDelegate {
+    func cancelButtonTapped(controller: CameraViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    
 }
 

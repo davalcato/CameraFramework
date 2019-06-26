@@ -9,6 +9,10 @@
 import UIKit
 import AVFoundation
 
+protocol CameraDelegate {
+    
+    
+}
 
 class Camera: NSObject {
     

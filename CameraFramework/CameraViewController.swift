@@ -42,6 +42,7 @@ public final class CameraViewController: UIViewController {
         }
         let button = UIButton()
         button.setImage(UIImage(named: "trigger", in: Bundle(for: CameraViewController.self), compatibleWith: nil), for: .normal)
+        button.addTarget(self, action: #selector(shutterButtonTapped), for: .touchUpInside)
         _shutterButton = button
         return button
         
@@ -140,9 +141,10 @@ fileprivate extension CameraViewController {
         if let delegate = self.delegate {
             delegate.cancelButtonTapped(controller: self)
         }
-    
     }
-    
+    @objc func shutterButtonTapped() {
+        
+    }
 }
 
 

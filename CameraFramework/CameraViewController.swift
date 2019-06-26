@@ -62,7 +62,9 @@ public final class CameraViewController: UIViewController {
         
     public init() {
         super.init(nibName: nil, bundle: nil)
-        self.camera = Camera(with: self)
+        let camera = Camera(with: self)
+        camera.delegate = self as? CameraDelegate
+        self.camera = camera 
         
     }
     

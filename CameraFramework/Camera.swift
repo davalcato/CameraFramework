@@ -10,12 +10,14 @@ import UIKit
 import AVFoundation
 
 protocol CameraDelegate {
+    func stillImageCaptured(camera: Camera, image: UIImage)
+    
     
     
 }
 
 class Camera: NSObject {
-    
+    var delegate: CameraDelegate?
     var controller: CameraViewController?
     
     var position: CameraPosition = .back {

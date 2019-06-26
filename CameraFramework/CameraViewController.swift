@@ -63,6 +63,8 @@ public final class CameraViewController: UIViewController {
     
     public override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        updateUI(orientation: UIApplication.shared.statusBarOrientation)
+        updateButtonFrames()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -85,11 +87,32 @@ fileprivate extension CameraViewController {
         self.view.addSubview(self.cancelButton)
     }
     func updateUI(orientation: UIInterfaceOrientation) {
-        
+        guard let previewLayer = self.previewLayer, let
+            connection = previewLayer.connection else {
+                return
+        }
+        previewLayer.frame = self.view.bounds
+        switch orientation {
+        case .portrait:
+            connection.videoOrientation = .portrait
+            break
+        case .landscapeLeft:
+            connection.videoOrientation = .landscapeLeft
+            break
+        case .landscapeRight:
+            connection.videoOrientation = .landscapeRight
+            break
+        case .portraitUpsideDown:
+            connection.videoOrientation = .portraitUpsideDown
+            break
+        default:
+            connection.videoOrientation = .portrait
+            break
+        }
     }
     
     func updateButtonFrames() {
-        
+        self.cancelButton.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.maxY, width: 70, height: 30)
         
     }
     

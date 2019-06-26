@@ -8,7 +8,11 @@
 
 import UIKit
 import AVFoundation
-import AVKit
+
+public protocol CameraControllerDelegate {
+    func cancelButtonTapped(controller: CameraViewController)
+    
+}
 
 public enum CameraPosition {
     case front

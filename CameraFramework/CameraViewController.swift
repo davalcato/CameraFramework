@@ -34,6 +34,19 @@ public final class CameraViewController: UIViewController {
         _cancelButton = button
         return button
     }
+    
+    private var _shutterButton: UIButton?
+    var shutterButton: UIButton{
+        if let currentButton = _shutterButton {
+            return currentButton
+        }
+        let button = UIButton()
+        button.setImage(UIImage(named: "trigger", in: Bundle(for: CameraViewController.self), compatibleWith: nil), for: .normal)
+        _shutterButton = button
+        return button
+        
+    }
+    
     public var delegate: CameraControllerDelegate?
     
     public var position: CameraPosition = .back {
@@ -85,6 +98,8 @@ fileprivate extension CameraViewController {
         self.previewLayer = previewLayer
         self.view.layer.addSublayer(previewLayer)
         self.view.addSubview(self.cancelButton)
+        self.view.addSubview(self.shutterButton)
+        
     }
     func updateUI(orientation: UIInterfaceOrientation) {
         guard let previewLayer = self.previewLayer, let
@@ -113,6 +128,7 @@ fileprivate extension CameraViewController {
     
     func updateButtonFrames() {
         self.cancelButton.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.maxY, width: 70, height: 30)
+        self.shutterButton.frame = CGRect(x: self.view.frame.midX - 35, y: self.view.frame.maxY - 80, width: 70, height: 70)
         
     }
     

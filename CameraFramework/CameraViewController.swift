@@ -23,6 +23,19 @@ public final class CameraViewController: UIViewController {
     fileprivate var camera: Camera?
     var previewLayer: AVCaptureVideoPreviewLayer?
     
+    private var _cancelButton: UIButton?
+    var cancelButton: UIButton {
+        if let currentButton = _cancelButton {
+            return currentButton
+        }
+        let button = UIButton(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.maxY, width: 70, height: 30))
+        button.setTitle("Cancel", for: .normal)
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        _cancelButton = button
+        return button
+    }
+    public var delegate: CameraControllerDelegate?
+    
     public var position: CameraPosition = .back {
         didSet {
             guard let camera = self.camera else {
@@ -65,9 +78,22 @@ fileprivate extension CameraViewController {
         }
         self.previewLayer = previewLayer
         self.view.layer.addSublayer(previewLayer)
+        self.view.addSubview(self.cancelButton)
+    }
+}
+// MARK: UIButton Functions
+
+fileprivate extension CameraViewController {
+    @objc func cancelButtonTapped() {
+        if let delegate = self.delegate {
+            delegate.cancelButtonTapped(controller: self)
+        }
+    
     }
     
 }
+
+
 
 
 

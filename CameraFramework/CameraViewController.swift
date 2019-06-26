@@ -84,6 +84,15 @@ fileprivate extension CameraViewController {
         self.view.layer.addSublayer(previewLayer)
         self.view.addSubview(self.cancelButton)
     }
+    func updateUI(orientation: UIInterfaceOrientation) {
+        
+    }
+    
+    func updateButtonFrames() {
+        
+        
+    }
+    
 }
 // MARK: UIButton Functions
 

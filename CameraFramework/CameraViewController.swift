@@ -61,6 +61,10 @@ public final class CameraViewController: UIViewController {
         camera.update()
     }
     
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

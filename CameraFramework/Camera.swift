@@ -57,38 +57,31 @@ class Camera: NSObject {
     }
     
     func captureStillImage() {
-        if let delegate = self.delegate {
-            delegate.stillImageCaptured(camera: self, image: UIImage())
-        }
+        let settings = AVCapturePhotoSettings()
+        self.photoOutput.capturePhoto(with: settings, delegate: self)
+    
     }
     
     func update() {
        recycleDevice()
         guard let input = getNewInputDevice() else {
-            
-        }
-        do {
-            
-            let input = try AVCaptureDeviceInput(device: device)
-            guard self.session.canAddInput(input) else {
-                return
-            }
-            guard self.session.canAddOutput(self.videoOutput) else {
-                return
-            }
-            guard self.session.canAddOutput(self.photoOutput) else {
-                return
-            }
-            self.videoInput = input
-            self.session.addInput(input)
-            self.session.addOutput(self.videoOutput)
-            self.session.addOutput(self.photoOutput)
-            self.session.commitConfiguration()
-            self.session.startRunning()
-        } catch {
-            print("Error linking device to AVInput !!!")
             return
-            
+        }
+        guard self.session.canAddInput(input) else {
+            return
+        }
+        guard self.session.canAddOutput(self.videoOutput) else {
+            return
+        }
+        guard self.session.canAddOutput(self.photoOutput) else {
+            return
+        }
+        self.videoInput = input
+        self.session.addInput(input)
+        self.session.addOutput(self.videoOutput)
+        self.session.addOutput(self.photoOutput)
+        self.session.commitConfiguration()
+        self.session.startRunning()
         }
         
     }

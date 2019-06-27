@@ -125,6 +125,15 @@ private extension Camera {
         return nil
     }
 }
+// MARK: Still photo Capture
+
+extension Camera: AVCapturePhotoCaptureDelegate {
+    @available(iOS 11.0, *)
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        
+    }
+
+}
 
 
 

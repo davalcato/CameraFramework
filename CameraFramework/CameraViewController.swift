@@ -145,11 +145,19 @@ fileprivate extension CameraViewController {
         }
     }
     @objc func shutterButtonTapped() {
-        
+        if let camera = self.camera {
+            camera.captureStillImage()
+        }
     }
 }
+// MARK: CameraDelegate Functions
 
-extension CameraViewController: CameraDelegate
+extension CameraViewController: CameraDelegate {
+    func stillImageCaptured(camera: Camera, image: UIImage) {
+        print("camera button tapped")
+    }
+    
+}
 
 
 

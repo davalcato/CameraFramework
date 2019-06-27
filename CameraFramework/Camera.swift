@@ -42,6 +42,7 @@ class Camera: NSObject {
     
     var videoInput: AVCaptureDeviceInput?
     var videoOutput = AVCaptureVideoDataOutput()
+    var photoOutput = AVCapturePhotoOutput()
     
     func getPreviewLayer() -> AVCaptureVideoPreviewLayer? {
         guard let controller = self.controller else {
@@ -53,6 +54,21 @@ class Camera: NSObject {
         previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         return previewLayer
         
+    }
+    
+    func captureStillImage() {
+        if let delegate = self.delegate {
+            delegate.stillImageCaptured(camera: self, image: UIImage())
+        }
+    }
+    
+    func recycleDevice() {
+        for oldInput in self. session.inputs {
+            self.session.removeInput(oldInput)
+        }
+        for oldOutput in self.session.outputs {
+            self.session.removeOutput(oldOutput)
+        }
     }
     
     func update() {

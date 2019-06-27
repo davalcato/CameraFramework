@@ -117,3 +117,20 @@ class Camera: NSObject {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

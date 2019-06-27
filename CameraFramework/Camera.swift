@@ -63,7 +63,7 @@ class Camera: NSObject {
     }
     
     func recycleDevice() {
-        for oldInput in self. session.inputs {
+        for oldInput in self.session.inputs {
             self.session.removeInput(oldInput)
         }
         for oldOutput in self.session.outputs {
@@ -72,23 +72,27 @@ class Camera: NSObject {
     }
     
     func update() {
-        if let currentInput = self.videoInput {
-            self.session.removeInput(currentInput)
-            self.session.removeOutput(self.videoOutput)
-        }
+       recycleDevice()
         do {
             guard let device = getDevice(with: self.position == .front ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back) else {
                 return
             }
             let input = try AVCaptureDeviceInput(device: device)
-            if self.session.canAddInput(input) &&
-                self.session.canAddOutput(self.videoOutput)
-            {
-                self.videoInput = input
-                self.session.addOutput(self.videoOutput)
-                self.session.commitConfiguration()
-                self.session.startRunning()
+            guard self.session.canAddInput(input) else {
+                return
             }
+            guard self.session.canAddOutput(self.videoOutput) else {
+                return
+            }
+            guard self.session.canAddOutput(self.photoOutput) else {
+                return
+            }
+            self.videoInput = input
+            self.session.addInput(input)
+            self.session.addOutput(self.videoOutput)
+            self.session.addOutput(self.photoOutput)
+            self.session.commitConfiguration()
+            self.session.startRunning()
         } catch {
             print("Error linking device to AVInput !!!")
             return

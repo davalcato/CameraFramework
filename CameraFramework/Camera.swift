@@ -62,21 +62,10 @@ class Camera: NSObject {
         }
     }
     
-    func recycleDevice() {
-        for oldInput in self.session.inputs {
-            self.session.removeInput(oldInput)
-        }
-        for oldOutput in self.session.outputs {
-            self.session.removeOutput(oldOutput)
-        }
-    }
-    
     func update() {
        recycleDevice()
         do {
-            guard let device = getDevice(with: self.position == .front ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back) else {
-                return
-            }
+            
             let input = try AVCaptureDeviceInput(device: device)
             guard self.session.canAddInput(input) else {
                 return
@@ -101,6 +90,30 @@ class Camera: NSObject {
         
     }
     
+}
+// MARK: CaptureDevice Handling
+
+private extension Camera {
+    func getNewInputDevice() -> AVCaptureDeviceInput? {
+        do {
+            guard let device = getDevice(with: self.position == .front ? AVCaptureDevice.Position.front : AVCaptureDevice.Position.back) else {
+                return nil
+            }
+            let input = try AVCaptureDeviceInput(device: device)
+            return input
+        } catch {
+            return nil
+        }
+    }
+    
+    func recycleDevice() {
+        for oldInput in self.session.inputs {
+            self.session.removeInput(oldInput)
+        }
+        for oldOutput in self.session.outputs {
+            self.session.removeOutput(oldOutput)
+        }
+    }
     private func getDevice(with position:
         AVCaptureDevice.Position) -> AVCaptureDevice? {
         guard let discoverySession = self.discoverySession
@@ -115,9 +128,7 @@ class Camera: NSObject {
         
         return nil
     }
-
 }
-
 
 
 

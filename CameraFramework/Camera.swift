@@ -64,6 +64,9 @@ class Camera: NSObject {
     
     func update() {
        recycleDevice()
+        guard let input = getNewInputDevice() else {
+            
+        }
         do {
             
             let input = try AVCaptureDeviceInput(device: device)

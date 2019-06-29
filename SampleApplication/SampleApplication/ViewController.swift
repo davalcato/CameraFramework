@@ -25,7 +25,7 @@ class ViewController: UIViewController {
   
     
     @IBAction func startButtonTapped() {
-        let camera = CameraViewController.init()
+        let camera = CameraViewController.self.init()
         camera.delegate = self
         camera.position = .back
         present(camera, animated: true, completion: nil)

@@ -62,8 +62,8 @@ public final class CameraViewController: UIViewController {
         
     public init() {
         super.init(nibName: nil, bundle: nil)
-        let camera = Camera(with: self)
-        camera.delegate = self as? CameraDelegate
+        let camera = Camera()
+        camera.delegate = self
         self.camera = camera 
         
     }
@@ -90,6 +90,7 @@ public final class CameraViewController: UIViewController {
 // MARK: User Interface Creation
 
 fileprivate extension CameraViewController {
+    
     func createUI() {
         guard let camera = self.camera else {
             return
@@ -98,6 +99,7 @@ fileprivate extension CameraViewController {
             else{
                 return
         }
+        previewLayer.frame = self.view.bounds
         self.previewLayer = previewLayer
         self.view.layer.addSublayer(previewLayer)
         self.view.addSubview(self.cancelButton)

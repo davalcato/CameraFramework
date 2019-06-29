@@ -23,6 +23,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
     @IBAction func startButtonTapped() {
         let camera = CameraViewController.init()
         camera.delegate = self
@@ -32,6 +36,11 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: CameraControllerDelegate {
+    func stillImageCaptured(controller: CameraViewController, image: UIImage) {
+        self.imageView.image = image
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
     func cancelButtonTapped(controller: CameraViewController) {
         controller.dismiss(animated: true, completion: nil)
     }

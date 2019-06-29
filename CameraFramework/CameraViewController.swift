@@ -11,7 +11,7 @@ import AVFoundation
 
 public protocol CameraControllerDelegate {
     func cancelButtonTapped(controller: CameraViewController)
-    
+    func stillImageCaptured(controller: CameraViewController, image: UIImage)
 }
 
 public enum CameraPosition {
@@ -154,7 +154,10 @@ fileprivate extension CameraViewController {
 
 extension CameraViewController: CameraDelegate {
     func stillImageCaptured(camera: Camera, image: UIImage) {
-        print("camera button tapped")
+        if let delegate = self.delegate {
+            delegate.stillImageCaptured(controller: self, image: image)
+        }
+        
     }
     
 }
